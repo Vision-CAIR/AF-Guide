@@ -1,0 +1,36 @@
+wandb:
+  project: "Guide"
+  group: "antmaze_umaze"
+  entity: null  # write yours
+  mode: "online"  # set to online, if needed
+
+dataset:
+  env_name: "antmaze-umaze-v0"
+
+model:
+  type: "afdt"
+  planner_path: "pretrained_acdt/acdt_antmaze_umaze.pt"
+  observation_dim: 29
+  action_dim: 8
+  embedding_dim: 128
+  context_len: 20
+  num_layers: 3
+  num_heads: 1
+  rtg_target: 1
+  rtg_scale: 1
+
+trainer:
+  coe_int_r: 3
+  coe_env_r: 1
+  lr: 6e-4
+  betas: [ 0.9, 0.95 ]
+  weight_decay: 0.1
+  clip_grad: 1.0
+  step_warm: 0
+  eval_seed: 42
+  eval_every: 10000
+  eval_episodes: 5
+  train_every: 5
+  num_steps: 3000000
+  checkpoints_root: "checkpoints/${dataset.env_name}"
+  name_prefix: "guided_sac"

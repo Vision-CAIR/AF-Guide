@@ -1,0 +1,36 @@
+wandb:
+  project: "AF-Guide"
+  group: "halfcheetah_medium_expert"
+  entity: null  # write yours
+  mode: "online"  # set to online, if needed
+
+dataset:
+  env_name: "halfcheetah-medium-expert-v2"
+
+model:
+  type: "afdt"
+  planner_path: "pretrained_acdt/acdt_halfcheetah_medium_expert.pt"
+  observation_dim: 17
+  action_dim: 6
+  embedding_dim: 128
+  context_len: 20
+  num_layers: 3
+  num_heads: 1
+  rtg_target: 6000
+  rtg_scale: 1000
+
+trainer:
+  coe_int_r: 0
+  coe_env_r: 1
+  lr: 6e-4
+  betas: [ 0.9, 0.95 ]
+  weight_decay: 0.1
+  clip_grad: 1.0
+  step_warm: 0
+  eval_seed: 42
+  eval_every: 10000
+  eval_episodes: 5
+  train_every: 5
+  num_steps: 1000000
+  checkpoints_root: "checkpoints/${dataset.env_name}"
+  name_prefix: "sac"
